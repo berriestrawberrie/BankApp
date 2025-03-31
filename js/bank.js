@@ -13,6 +13,7 @@ const user ={
     deposit(){
         let addMoney = prompt("How many milks do you wish to deposit?");
 
+        //CHECK IF USER ENTERED A POSITIVE REAL NUMBER
         if(isNaN(addMoney) || addMoney < 0){
 
             //CONTINUE TO PROMPT UNTIL USER ENTERS A POSITIVE NUMBER
@@ -22,7 +23,7 @@ const user ={
             //THEN APPLY DEPOSIT TO THE ACCOUNT
             addMoney = Math.round(addMoney);
             let newBal = addMoney + this.balance;
-            user.balance = newBal;
+            this.balance = newBal;
             alert(`Deposit successful! You now have ${this.balance}(s) milks in your account ${this.accountName}.`);
 
         }else{
@@ -32,7 +33,31 @@ const user ={
             alert(`Deposit successful! You now have ${this.balance}(s) milks in your account ${this.accountName}.`);
         }
 
-    }
+    },//END OF DEPOSIT FUNCTION
+    withdraw(){
+        let takeMoney = prompt("How many milks would you like to withdraw?");
+
+         //CHECK IF USER ENTERED A POSITIVE REAL NUMBER & HAS ENOUGH TO WITHDRAW
+        if(isNaN(takeMoney)|| takeMoney < 0 || takeMoney > this.balance){
+
+            //CONTINUE TO PROMPT UNTIL USER ENTERS A POSITIVE NUMBER
+            while(isNaN(takeMoney) || takeMoney < 0 || takeMoney > this.balance){
+                takeMoney = prompt(`Error: Sorry you must enter a real number, it must be a positive quantity and it must be less than your current balance of ${this.balance}.`);
+            }
+             //THEN TAKE MILKS FROM THE ACCOUNT
+             takeMoney = Math.round(takeMoney);
+             let newBal = this.balance - takeMoney;
+             this.balance = newBal;
+             alert(`Withdrawal successful! You now have ${this.balance}(s) milks in your account ${this.accountName}.`);
+ 
+        }else{
+            //THEN TAKE MILKS FROM THE ACCOUNT
+            takeMoney = Math.round(takeMoney);
+            let newBal = this.balance - takeMoney;
+            this.balance = newBal;
+            alert(`Withdrawal successful! You now have ${this.balance}(s) milks in your account ${this.accountName}.`);
+        }
+    }//END OF WITHDRAW
 }
 
 function atm(){
@@ -46,7 +71,7 @@ function atm(){
             user.deposit();
             break;
         case 3:
-            console.log("Want Withdraw");
+            user.withdraw();
             break;
         case 4:
             console.log("Want Name");

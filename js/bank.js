@@ -11,22 +11,19 @@ let user ={
             alert(':( You have no milks in the milk bank');
         }
     },//END OF GETBALANCE
-    accountError(qty){
-        //VERIFY USER INPUTS POSITIVE NUMBER
-        if(qty < 0){
-            return true;
-        }else{
-            return false;
-        }
-    },//END ACCOUNTERROR
+    accountError(){
+        //MAKE SURE USER PICKS A VALID OPTION
+        alert("Option invalid please pick a valid option number from the list");
+    
+    },
     deposit(){
-        let addMoney = prompt("How many milks do you wish to deposit?");
+        let addMoney = prompt("How many milks do you wish to deposit? *Please note all milk deposits will be rounded to nearest whole milk");
 
         //CHECK IF USER ENTERED A POSITIVE REAL NUMBER
-        if(isNaN(addMoney) || this.accountError(addMoney)){
+        if(isNaN(addMoney) || addMoney < 0){
 
             //CONTINUE TO PROMPT UNTIL USER ENTERS A POSITIVE NUMBER
-            while(isNaN(addMoney) || this.accountError(addMoney)){
+            while(isNaN(addMoney) || addMoney < 0){
                 addMoney = prompt("Error: Sorry you must enter a real number and must be a positive quantity.");
             }
             //THEN APPLY DEPOSIT TO THE ACCOUNT
@@ -44,13 +41,13 @@ let user ={
 
     },//END OF DEPOSIT FUNCTION
     withdraw(){
-        let takeMoney = prompt("How many milks would you like to withdraw?");
+        let takeMoney = prompt("How many milks would you like to withdraw? *Please note all milk withdrawals will be rounded to nearest whole milk");
 
          //CHECK IF USER ENTERED A POSITIVE REAL NUMBER & HAS ENOUGH TO WITHDRAW
-        if(isNaN(takeMoney)|| this.accountError(takeMoney)|| takeMoney > this.balance){
+        if(isNaN(takeMoney)|| takeMoney < 0 || takeMoney > this.balance){
 
             //CONTINUE TO PROMPT UNTIL USER ENTERS A POSITIVE NUMBER
-            while(isNaN(takeMoney) || this.accountError(takeMoney) || takeMoney > this.balance){
+            while(isNaN(takeMoney) || takeMoney < 0 || takeMoney > this.balance){
                 takeMoney = prompt(`Error: Sorry you must enter a real number, it must be a positive quantity and it must be less than your current balance of ${this.balance}.`);
             }
              //THEN TAKE MILKS FROM THE ACCOUNT
@@ -97,6 +94,9 @@ function atm(){
                     continue;
                 case 5:
                     user.exit();
+                    continue;
+                default: 
+                    user.accountError();
                     continue;
                 
             }//END OF SWITCH

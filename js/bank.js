@@ -3,11 +3,35 @@ const user ={
     accountName: "Kitten Milks",
     balance: 1200,
     getBalance(){
+        //FIRST CHECK IF THE BALANCE IS ZERO
         if(this.balance != 0){
             alert(`You have ${this.balance}(s) in the milk bank`);
         }else{
             alert(':( You have no milks in the milk bank');
         }
+    },//END OF GETBALANCE
+    deposit(){
+        let addMoney = prompt("How many milks do you wish to deposit?");
+
+        if(isNaN(addMoney) || addMoney < 0){
+
+            //CONTINUE TO PROMPT UNTIL USER ENTERS A POSITIVE NUMBER
+            while(isNaN(addMoney) || addMoney < 0){
+                addMoney = prompt("Error: Sorry you must enter a real number and must be a positive quantity.");
+            }
+            //THEN APPLY DEPOSIT TO THE ACCOUNT
+            addMoney = Math.round(addMoney);
+            let newBal = addMoney + this.balance;
+            user.balance = newBal;
+            alert(`Deposit successful! You now have ${this.balance}(s) milks in your account ${this.accountName}.`);
+
+        }else{
+            addMoney = Math.round(addMoney);
+            let newBal = addMoney + this.balance;
+            user.balance = newBal;
+            alert(`Deposit successful! You now have ${this.balance}(s) milks in your account ${this.accountName}.`);
+        }
+
     }
 }
 
@@ -19,7 +43,7 @@ function atm(){
             user.getBalance();
             break;
         case 2:
-            console.log("Want Deposit");
+            user.deposit();
             break;
         case 3:
             console.log("Want Withdraw");
